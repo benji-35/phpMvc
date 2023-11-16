@@ -1,0 +1,1 @@
+//import * as BOOTSTRAP from "resources/style/bootstrap-3.4.1/js/bootstrap"
