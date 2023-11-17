@@ -1,6 +1,6 @@
 <?php
-    $main_js = "app/main.js";
-    $main_css = "app/main.css";
+    $main_js = \App\Router\Router::getGoodUrl("app/main.js");
+    $main_css = \App\Router\Router::getGoodUrl("app/main.css");
 ?>
 <html lang="<?= $_ROUTER['lang'] ?>">
 <head>
@@ -8,8 +8,6 @@
     <link rel="icon" type="image/x-icon" href="<?= $_ROUTER['icon'] ?>">
     <script src="<?= $main_js ?>"></script>
     <link rel="stylesheet" href="<?= $main_css ?>">
-    <link href="app/resources/style/bootstrap-5.0.2/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="app/resources/style/bootstrap-5.0.2/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <?php
     if (isset($_ROUTER["layout_css"])) {
         ?>

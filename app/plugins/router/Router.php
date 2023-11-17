@@ -22,7 +22,7 @@ namespace App\Router {
         }
 
         private static function readRoutesConfig() {
-            $json = file_get_contents('app/config/Routes.json');
+            $json = file_get_contents( 'app/config/Routes.json');
             return json_decode($json,true);
         }
 
@@ -81,7 +81,34 @@ namespace App\Router {
         private static function generate_not_found($method) {
             http_response_code(404);
             if ($method === "GET") {
-                include "app/view/NotFound.php";
+                $_SESSION["router"]['lang'] = "en";
+                $_SESSION["router"]['title'] = "NotFound";
+                $_SESSION["router"]['icon'] = self::getGoodUrl("app/resources/images/AppMaker.ico");
+                $_SESSION["router"]["layout_path"] = "app/view/layouts/based/basedLayout.php";
+                $data = self::readRoutesConfig();
+                $layout_read = "";
+                if (key_exists("not_found", $data) && key_exists("layout", $data["not_found"])) {
+                    $layout_read = $data["not_found"]["layout"];
+                }
+                if ($layout_read !== "") {
+                    $_SESSION["router"]["layout_path"] = "app/view/layouts/$layout_read.php";
+                    if (file_exists("app/resources/style/layouts/" . $layout_read . ".css")) {
+                        $_SESSION["router"]["layout_css"] =  self::getGoodUrl("app/resources/style/layouts/" . $layout_read . ".css");
+                    }
+                    if (file_exists("app/resources/script/layouts/" . $layout_read . ".js")) {
+                        $_SESSION["router"]["layout_js"] = self::getGoodUrl("app/resources/script/layouts/" . $layout_read . ".js");
+                    }
+                } else {
+                    if (file_exists("app/resources/style/layouts/basedLayout.css")) {
+                        $_SESSION["router"]["layout_css"] = self::getGoodUrl("app/resources/style/layouts/basedLayout.css");
+                    }
+                    if (file_exists("app/resources/script/layouts/basedLayout.js")) {
+                        $_SESSION["router"]["layout_js"] = self::getGoodUrl("app/resources/script/layouts/basedLayout.js");
+                    }
+                }
+                $_SESSION["router"]["layout_content"] = "app/view/NotFound.php";
+                $_ROUTER = $_SESSION["router"];
+                include "app/main.php";
             } else {
                 echo "request not found.";
             }
@@ -90,10 +117,10 @@ namespace App\Router {
         private static function bad_gateway($method) {
             if ($method === "GET") {
                 self::generate_not_found($method);
-                return;
+            } else {
+                http_response_code(502);
+                echo "Unknown method to get access to this url.";
             }
-            http_response_code(502);
-            echo "Unknown method to get access to this url.";
         }
 
         private static function generate_controller_not_found($method, $controller) {
@@ -122,9 +149,12 @@ namespace App\Router {
             unset($_SESSION["router"]);
             $urls = $this->readRoutesConfig()["urls"];
             $path = "app/view/$className/$methodName.php";
+            if (!file_exists($path)) {
+                $path = "app/view/NotFound.php";
+            }
             $_SESSION["router"] = [
                 "title" => $methodName,
-                "icon" => "app/resources/images/AppMaker.ico",
+                "icon" => self::getGoodUrl("app/resources/images/AppMaker.ico"),
                 "lang" => "en"
             ];
             if (isset($_SESSION["title"])) {
@@ -147,23 +177,28 @@ namespace App\Router {
                 if (isset($_SESSION["layouts"])) {
                     $_SESSION["router"]["layout_content"] = $path;
                     $layout_path = "app/view/layouts/" . $_SESSION["layouts"] . ".php";
-                    if (file_exists("app/resources/style/layouts/" . $_SESSION["layouts"] . ".css")) {
-                        $_SESSION["router"]["layout_css"] = "app/resources/style/layouts/" . $_SESSION["layouts"] . ".css";
+                    $layout_css = self::getGoodUrl("app/resources/style/layouts/" . $_SESSION["layouts"] . ".css");
+                    $layout_js = self::getGoodUrl("app/resources/script/layouts/" . $_SESSION["layouts"] . ".js");
+                    if (file_exists($layout_css)) {
+                        $_SESSION["router"]["layout_css"] = $layout_css;
                     }
-                    if (file_exists("app/resources/script/layouts/" . $_SESSION["layouts"] . ".css")) {
-                        $_SESSION["router"]["layout_js"] = "app/resources/script/layouts/" . $_SESSION["layouts"] . ".css";
+                    if (file_exists($layout_js)) {
+                        $_SESSION["router"]["layout_js"] = $layout_js;
                     }
                     $_SESSION["router"]["layout_path"] = $layout_path;
                     $_ROUTER = $_SESSION["router"];
                     include "app/main.php";
                 } else {
                     $_SESSION["router"]["layout_content"] = $path;
-                    $_SESSION["router"]["layout_path"] = "app/view/layouts/based/basedLayout.php";
-                    if (file_exists("app/resources/style/layouts/basedLayout.css")) {
-                        $_SESSION["router"]["layout_css"] = "app/resources/style/layouts/basedLayout.css";
+                    $based_css = self::getGoodUrl("app/resources/style/layouts/basedLayout.css");
+                    $based_js = self::getGoodUrl("app/resources/script/layouts/basedLayout.js");
+                    $based_layout = "app/view/layouts/based/basedLayout.php";
+                    $_SESSION["router"]["layout_path"] = $based_layout;
+                    if (file_exists($based_css)) {
+                        $_SESSION["router"]["layout_css"] = $based_css;
                     }
-                    if (file_exists("app/resources/script/layouts/basedLayout.js")) {
-                        $_SESSION["router"]["layout_js"] = "app/resources/script/layouts/basedLayout.js";
+                    if (file_exists($based_js)) {
+                        $_SESSION["router"]["layout_js"] = $based_js;
                     }
                     $_ROUTER = $_SESSION["router"];
                     include "app/main.php";
@@ -176,9 +211,36 @@ namespace App\Router {
             Router::generate_not_found("GET");
         }
 
+        public function redirect($className, $methodName, $permanent = false) {
+            $urls = Router::readRoutesConfig()["urls"];
+            foreach ($urls as $url => $methods) {
+                foreach ($methods as $urlMethod => $data) {
+                    if ($data["controller"] !== $className || $data["function"] !== $methodName)
+                        continue;
+                    if ($urlMethod === "GET") {
+                        header('Location: ' . $url, true, $permanent ? 301 : 302);
+                        exit();
+                    } else {
+                        Router::generate_not_found("[$urlMethod] $className::$methodName");
+                    }
+                }
+            }
+            Router::generate_not_found("$className::$methodName");
+        }
+
         public function notFoundPage($what_not_found) {
             $_SESSION["url"] = $what_not_found;
             Router::generate_not_found("GET");
+        }
+
+        public static function getGoodUrl($rootPath) {
+            $url = $_SERVER["REQUEST_URI"];
+            $path = explode("/", $url);
+            $start_at = 2;
+            for ($i = $start_at;$i < count($path); $i++) {
+                $rootPath = "../$rootPath";
+            }
+            return $rootPath;
         }
     }
 }

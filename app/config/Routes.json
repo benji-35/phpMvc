@@ -9,30 +9,11 @@
     "/": {
       "GET": {
         "controller": "ExampleController",
-        "function": "view1"
-      }
-    },
-    "/home": {
-      "GET": {
-        "controller": "ExampleController",
-        "function": "view2"
-      }
-    },
-    "/posted": {
-      "GET": {
-        "controller": "ExampleController",
-        "function": "viewPosted"
-      },
-      "POST": {
-        "controller": "ExampleController",
-        "function": "postMethod"
-      }
-    },
-    "/receivedPosted": {
-      "GET": {
-        "controller": "ExampleController",
-        "function": "receivedPosted"
+        "function": "index"
       }
     }
+  },
+  "not_found": {
+    "layout": ""
   }
 }
