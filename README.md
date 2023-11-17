@@ -23,7 +23,7 @@ You have a config file in `` app/config/Routes.json ``
 - controllers :
 <br>
 List all your controllers. We gonna add ``MyController``
-````json
+```json
 {
   "controllers": {
     "MyController": {
@@ -32,10 +32,10 @@ List all your controllers. We gonna add ``MyController``
     }
   }
 }
-````
+```
 - urls :<br>
 You set all urls you want here. We gonna set the url ``<myHost>/myCustomUrl`` to our function ``myUrl``.
-````json
+```json
 {
   "urls": {
     "/myCustomUrl": {
@@ -46,7 +46,7 @@ You set all urls you want here. We gonna set the url ``<myHost>/myCustomUrl`` to
     }
   }
 }
-````
+```
 
 ### Create your view
 Now your website is configured and your controllers set. Let's create what your users have to see.
