@@ -22,7 +22,7 @@ You have a config file in `` app/config/Routes.json ``
 <br>this file contains 2 important part : 
 - controllers :
 <br>
-List all your controllers. We gonna add ``MyController``
+List all your controllers. We gonna add `` MyController ``
 <br>
 ```json
 {
@@ -35,7 +35,7 @@ List all your controllers. We gonna add ``MyController``
 }
 ```
 - urls :<br>
-You set all urls you want here. We gonna set the url ``<myHost>/myCustomUrl`` to our function ``myUrl``.
+You set all urls you want here. We gonna set the url `` <myHost>/myCustomUrl `` to our function `` myUrl ``.
 <br>
 ```json
 {
