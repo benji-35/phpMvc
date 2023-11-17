@@ -20,10 +20,8 @@ In this example, myUrl function will be used to host 1 url path.
 ### Configure url paths
 You have a config file in `` app/config/Routes.json ``
 <br>this file contains 2 important part : 
-- controllers :
-<br>
+- controllers :<br>
 List all your controllers. We gonna add `` MyController ``
-<br>
 ```json
 {
   "controllers": {
@@ -34,9 +32,10 @@ List all your controllers. We gonna add `` MyController ``
   }
 }
 ```
+<br>
+
 - urls :<br>
 You set all urls you want here. We gonna set the url `` <myHost>/myCustomUrl `` to our function `` myUrl ``.
-<br>
 ```json
 {
   "urls": {
