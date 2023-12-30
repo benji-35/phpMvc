@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # phpMvc
 
 ## How to create my page ?
