@@ -1,6 +1,7 @@
 <?php
+    highlight_string("<?php\n\$data =\n" . var_export(\App\RouterApp::$DATA, true) . ";\n?>");
 ?>
 
 <div>
-    <?= $_SESSION["data"]["variable1"] ?>
+    <?= \App\RouterApp::$DATA["variable1"] ?>
 </div>

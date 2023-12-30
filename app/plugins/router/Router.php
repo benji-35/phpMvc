@@ -1,13 +1,8 @@
 <?php
 
-
 namespace App\Router {
 
-    use ErrorException;
-
-    if (session_status() !== PHP_SESSION_ACTIVE) {
-        session_start();
-    }
+    use App\RouterApp;
 
     class Router {
 
@@ -30,6 +25,13 @@ namespace App\Router {
             unset($_SESSION["url"]);
             $_SESSION["url"] = $url;
             $urls = Router::readRoutesConfig()["urls"];
+            RouterApp::$DATA = [];
+            RouterApp::$DATA["url"] = "$url";
+            RouterApp::$DATA["method"] = "$method";
+            RouterApp::$DATA["params"] = $_GET;
+            if (strtoupper($method) === "POST") {
+                RouterApp::$DATA["post"] = $_POST;
+            }
             if (!array_key_exists($url, $urls)) {
                 $this->generate_not_found($method);
                 return;
@@ -59,7 +61,6 @@ namespace App\Router {
         }
 
         private static function callMethod($namespace, $className, $methodName) {
-            unset($_SESSION["data"]);
             $path = "app/controller/" . Router::$controllers[$className]["location"];
             if (!key_exists("app/controller/BaseController.php", get_included_files()))
                 include "app/controller/BaseController.php";
@@ -204,7 +205,6 @@ namespace App\Router {
                     include "app/main.php";
                 }
                 unset($_SESSION["layouts"]);
-                unset($_SESSION["data"]);
                 return;
             }
             $_SESSION["url"] = $methodName;
@@ -242,5 +242,11 @@ namespace App\Router {
             }
             return $rootPath;
         }
+    }
+}
+
+namespace App {
+    class RouterApp {
+        static array $DATA;
     }
 }

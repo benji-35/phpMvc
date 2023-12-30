@@ -1,7 +1,6 @@
 <?php
     $_ROUTER = $_SESSION["router"];
     if (key_exists("data", $_SESSION)) {
-        $data = $_SESSION["data"];
         if (key_exists("title", $data)) {
             $title = $data["title"];
         }
