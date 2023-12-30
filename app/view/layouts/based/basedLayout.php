@@ -1,7 +1,9 @@
 <?php
+    $title = "KapHpMvc";
     if (key_exists("title", \App\RouterApp::$DATA)) {
         $title = \App\RouterApp::$DATA["title"];
     }
+    $lang = "en";
     if (key_exists("lang", \App\RouterApp::$DATA)) {
         $lang = \App\RouterApp::$DATA["lang"];
     }
@@ -9,9 +11,9 @@
     $main_css = "app/main.css";
 ?>
 <!DOCTYPE html>
-<html lang="<?= \App\RouterApp::$DATA['lang'] ?>">
+<html lang="<?= $lang ?>">
     <head>
-        <title><?= \App\RouterApp::$DATA['title'] ?></title>
+        <title><?= $title ?></title>
         <link rel="icon" type="image/x-icon" href="<?= \App\RouterApp::$DATA['icon'] ?>">
         <script src="<?= $main_js ?>"></script>
         <link rel="stylesheet" href="<?= $main_css ?>">

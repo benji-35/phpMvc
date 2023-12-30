@@ -1,6 +1,7 @@
 <?php
     $main_js = \App\Router\Router::getGoodUrl("app/main.js");
     $main_css = \App\Router\Router::getGoodUrl("app/main.css");
+    $_ROUTER = \App\RouterApp::$DATA;
 ?>
 <html lang="<?= $_ROUTER['lang'] ?>">
 <head>

@@ -17,6 +17,30 @@
         "controller": "ExampleController",
         "function": "createUser"
       }
+    },
+    "/loginUser": {
+      "POST": {
+        "controller": "ExampleController",
+        "function": "loginUser"
+      }
+    },
+    "/login": {
+      "GET": {
+        "controller": "ExampleController",
+        "function": "login"
+      }
+    },
+    "/register": {
+      "GET": {
+        "controller": "ExampleController",
+        "function": "register"
+      }
+    },
+    "/logout": {
+      "POST": {
+        "controller": "ExampleController",
+        "function": "logout"
+      }
     }
   },
   "not_found": {

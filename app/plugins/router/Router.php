@@ -179,20 +179,12 @@ namespace App\Router {
             if (!file_exists($path)) {
                 $path = "app/view/NotFound.php";
             }
-            RouterApp::$DATA = [
-                "title" => $methodName,
-                "icon" => self::getGoodUrl("app/resources/images/AppMaker.ico"),
-                "lang" => "en"
-            ];
-            if (isset($_SESSION["title"])) {
-                RouterApp::$DATA["title"] = $_SESSION["title"];
-            }
-            if (isset($_SESSION["lang"])) {
-                RouterApp::$DATA["lang"] = $_SESSION["lang"];
-            }
-            if (isset($_SESSION["icon"])) {
-                RouterApp::$DATA["icon"] = $_SESSION["icon"];
-            }
+            if (!isset(\App\RouterApp::$DATA["title"]))
+                \App\RouterApp::$DATA["title"] = $methodName;
+            if (!isset(\App\RouterApp::$DATA["lang"]))
+                \App\RouterApp::$DATA["lang"] = "en";
+            if (!isset(\App\RouterApp::$DATA["icon"]))
+                \App\RouterApp::$DATA["icon"] = self::getGoodUrl("app/resources/images/AppMaker.ico");
             foreach ($urls as $url => $data) {
                 if (!key_exists("GET", $data))
                     continue;
