@@ -11,6 +11,12 @@
         "controller": "ExampleController",
         "function": "index"
       }
+    },
+    "/createUser": {
+      "POST": {
+        "controller": "ExampleController",
+        "function": "createUser"
+      }
     }
   },
   "not_found": {

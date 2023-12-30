@@ -1,4 +1,5 @@
 <?php
+    use App\RouterApp;
 ?>
 
-<h1>Not Found : <?= $_SESSION["url"] ?></h1>
+<h1>Not Found : <?= RouterApp::$DATA["url"] ?></h1>
