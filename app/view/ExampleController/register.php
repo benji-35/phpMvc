@@ -1,7 +1,8 @@
 <?php
 ?>
 <div>
-    <form method="post" action="/createUser">
+    <form class="authentication-form" method="post" action="/createUser">
+        <h1>Register</h1>
         <label>
             Name:
             <input type="text" placeholder="Name..." name="name">
@@ -14,6 +15,7 @@
             Password:
             <input type="password" placeholder="Password..." name="password">
         </label>
-        <input type="submit" value="Register">
+        <input class="send" type="submit" value="Register">
+        <?php \App\RouterApp::LINK_TO_METHOD("ExampleController", "login", "Already have an account ?"); ?>
     </form>
 </div>

@@ -1,0 +1,10 @@
+.link-to {
+    width: min-content;
+    height: min-content;
+}
+
+.link-to input[type="submit"] {
+    background-color: transparent;
+    text-align: left;
+
+}

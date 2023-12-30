@@ -1,0 +1,47 @@
+.authentication {
+    width: 400px;
+    height: 350px;
+    position: absolute;
+    background-color: #6c6c6c;
+    left: calc(100vw / 2 - 200px);
+    top: calc(100vh / 2 - 175px);
+    border-radius: 5px;
+    color: white;
+}
+
+.authentication-form {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.authentication-form label {
+    width: 300px;
+    margin-left: 50px;
+    margin-right: 50px;
+    text-align: left;
+}
+
+.authentication-form label input {
+    width: 180px;
+    margin-left: 60px;
+    margin-right: 60px;
+}
+
+.authentication-form .send {
+    width: 100px;
+    height: 35px;
+    margin: 10px auto 0;
+    color: black;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+}

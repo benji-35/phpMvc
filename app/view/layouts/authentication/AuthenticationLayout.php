@@ -1,7 +1,5 @@
 <?php
     $title = "KapHpMvc";
-    highlight_string("<?php\n\$DATA =\n" . var_export(\App\RouterApp::$DATA, true) . ";\n?>");
-
     if (key_exists("title", \App\RouterApp::$DATA)) {
         $title = \App\RouterApp::$DATA["title"];
     }
@@ -20,8 +18,24 @@
     <script src="<?= $main_js ?>"></script>
     <link rel="stylesheet" href="<?= $main_css ?>">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <?php
+        if (isset(\App\RouterApp::$DATA["layout_css"])) {
+    ?>
+        <link rel="stylesheet" href="<?= \App\RouterApp::$DATA["layout_css"] ?>">
+    <?php
+        }
+    ?>
+    <?php
+    if (isset(\App\RouterApp::$DATA["layout_js"])) {
+        ?>
+        <script src="<?= \App\RouterApp::$DATA["layout_js"] ?>"></script>
+    <?php
+    }
+    ?>
 </head>
 <body>
-<?php include \App\RouterApp::$DATA["layout_content"]; ?>
+    <div class="authentication">
+        <?php include \App\RouterApp::$DATA["layout_content"]; ?>
+    </div>
 </body>
 </html>
