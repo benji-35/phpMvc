@@ -291,18 +291,22 @@ namespace App {
     class RouterApp {
         static array $DATA;
 
-        public static function LINK_TO($url, $text = "Link to"): void {
-            echo "<a href='$url'>$text</a>";
+        public static function LINK_TO($url, $text = "Link to", $inNewTab = false): void {
+            $blank = "";
+            if ($inNewTab) {
+                $blank = " target='_blank'";
+            }
+            echo "<a href='$url'$blank>$text</a>";
         }
 
-        public static function LINK_TO_METHOD($class, $method, $text = "Link to", $params = []): void
+        public static function LINK_TO_METHOD($class, $method, $text = "Link to", $inNewTab = false, $params = []): void
         {
             $url = \App\Router\Router::getUrlFromClassMethod($class, $method, $params);
             if ($url === null) {
                 $url = "#";
                 $text = "[NOT FOUND] $text";
             }
-            self::LINK_TO($url, $text);
+            self::LINK_TO($url, $text, $inNewTab);
         }
     }
 }

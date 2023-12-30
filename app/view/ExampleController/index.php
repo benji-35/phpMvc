@@ -2,28 +2,8 @@
 ?>
 
 <div>
-    <form method="post" action="/createUser">
-        <label>
-            Nom:
-            <input type="text" name="name" placeholder="Nom...">
-        </label>
-        <label>
-            Email:
-            <input type="email" name="email" placeholder="Email...">
-        </label>
-        <label>
-            Mot de passe:
-            <input type="password" name="password" placeholder="Mot de passe...">
-        </label>
-        <input type="submit" value="Envoyer">
-        <?php
-        if (isset(\App\RouterApp::$DATA["error"])) {
-            ?>
-                <div class="error">
-                    <p> Error: <?= \App\RouterApp::$DATA["error"] ?> </p>
-                </div>
-            <?php
-        }
-        ?>
-    </form>
+    <h1>Welcome,</h1>
+    <p>You are now using the MVC system made by <?php \App\RouterApp::LINK_TO("https://github.com/benji-35", "benji-35", true); ?>, also known as kap35.</p>
+    <p>One of the easiest way to made your own website super fast !</p>
+    <p>All documentation is available here: <?php \App\RouterApp::LINK_TO("https://kap35.gitbook.io/php-mvc/", "link to doc", true); ?>.</p>
 </div>

@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Model\user\UserModel;
-
 class ExampleController extends BaseController {
 
     function index() {
